@@ -1,5 +1,5 @@
 
-// Function to fetch a random quote from the Forismatic API
+// // Function to fetch a random quote from the Forismatic API
 
 function getRandomQuote() {
     fetch('https://famous-quotes4.p.rapidapi.com/random?category=all&count=1', {
@@ -10,7 +10,9 @@ function getRandomQuote() {
     })
     .then(response => response.json())
     .then(data => {
-        updateQuoteDisplay(data.quoteText, data.quoteAuthor);
+        const quote = data[0]; // Access the first quote in the response array
+        updateQuoteDisplay(quote.text, quote.author); // Call the updateQuoteDisplay function with the quote text and author
+        console.log(quote.author, quote.text); // Output the quote to the console
     })
     .catch(error => {
         console.error('An error occurred:', error.message);
@@ -30,10 +32,9 @@ if (quoteAuthor) { // Check if author information is available
 
 
 
-
 // Call the getRandomQuote function on page load to display an initial quote
 getRandomQuote();
-console.log(quoteText);
+
 
 // Add event listener to the "New Quote" button (if implemented)
 const newQuoteButton = document.getElementById('new-quote-button');
